@@ -7,6 +7,11 @@ export const ProfileContainer = styled.div`
   background-color: ${(props) => props.theme["baseProfile"]};
   border-radius: 8px;
   margin-top: -160px;
+
+  img {
+    width: 9rem;
+    border-radius: 8px;
+  }
 `;
 
 export const TextContainer = styled.div`
@@ -25,7 +30,7 @@ export const NameContainer = styled.header`
     color: ${(props) => props.theme["baseTitle"]};
   }
 
-  a {
+  span {
     display: flex;
     align-items: center;
     gap: 0.25rem;
@@ -36,8 +41,7 @@ export const NameContainer = styled.header`
     border-bottom: 1px solid transparent;
   }
 
-  a:hover {
-    cursor: pointer;
+  span:hover {
     border-color: ${(props) => props.theme["blue"]};
     transition: 0.2s;
   }
@@ -47,7 +51,7 @@ export const SocialsContainer = styled.div`
   display: flex;
   gap: 1rem;
 
-  a {
+  span {
     font-size: 0.9rem;
     color: ${(props) => props.theme["baseSpan"]};
     display: flex;
@@ -55,8 +59,7 @@ export const SocialsContainer = styled.div`
     gap: 0.2rem;
   }
 
-  a:hover {
-    cursor: pointer;
+  span:hover {
     color: ${(props) => props.theme["baseText"]};
     transition: 0.2s;
   }

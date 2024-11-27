@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { myGithubAPI } from "../../utils/api";
 import {
   NameContainer,
   ProfileContainer,
@@ -6,32 +8,67 @@ import {
 } from "./styles";
 import { ArrowSquareOut, Buildings, GithubLogo, Users } from "phosphor-react";
 
+interface userDataProps {
+  name: string;
+  avatar: string;
+  bio: string;
+  githubLink: string;
+  company: string;
+  followers: number;
+  username: string;
+}
+
 export function Profile() {
+  const [userData, setUserData] = useState<userDataProps>({
+    name: "",
+    avatar: "",
+    bio: "",
+    githubLink: "",
+    username: "",
+    company: "",
+    followers: 0,
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const response = await myGithubAPI.get("");
+      const data = response.data;
+
+      setUserData({
+        name: data.name,
+        avatar: data.avatar_url,
+        bio: data.bio,
+        githubLink: data.html_url,
+        company: data.company,
+        followers: data.followers,
+        username: data.login,
+      });
+    };
+
+    fetchUserData();
+  });
+
   return (
     <ProfileContainer>
-      <img src="/src/assets/avatar.png" />
+      <img src={userData.avatar} />
       <TextContainer>
         <NameContainer>
-          <h3>Cameron Williamson</h3>
-          <a>
+          <h3>{userData.name}</h3>
+          <a href={userData.githubLink}>
             Github <ArrowSquareOut />
           </a>
         </NameContainer>
-        <p>
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </p>
+        <p>{userData.bio}</p>
         <SocialsContainer>
-          <a>
-            <GithubLogo /> cameronwll
-          </a>
-          <a>
-            <Buildings /> cameronwll
-          </a>
-          <a>
-            <Users /> cameronwll
-          </a>
+          <span>
+            <GithubLogo /> {userData.username}
+          </span>
+          <span>
+            <Buildings /> {userData.company || "Empresa não informada"}
+          </span>
+          <span>
+            <Users /> {userData.followers}
+          </span>
         </SocialsContainer>
       </TextContainer>
     </ProfileContainer>

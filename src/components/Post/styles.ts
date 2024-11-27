@@ -4,10 +4,16 @@ export const PostContainer = styled.div`
   background-color: ${(props) => props.theme["basePost"]};
   border-radius: 8px;
   padding: 2rem;
+  border: 1px solid transparent;
 
   p {
     color: ${(props) => props.theme["baseText"]};
     font-size: 0.9rem;
+  }
+
+  &:hover {
+    border-color: ${(props) => props.theme["baseSpan"]};
+    transition: 0.2s;
   }
 `;
 
