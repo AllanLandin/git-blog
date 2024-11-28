@@ -30,7 +30,7 @@ export const NameContainer = styled.header`
     color: ${(props) => props.theme["baseTitle"]};
   }
 
-  span {
+  a {
     display: flex;
     align-items: center;
     gap: 0.25rem;
@@ -41,7 +41,7 @@ export const NameContainer = styled.header`
     border-bottom: 1px solid transparent;
   }
 
-  span:hover {
+  a:hover {
     border-color: ${(props) => props.theme["blue"]};
     transition: 0.2s;
   }
