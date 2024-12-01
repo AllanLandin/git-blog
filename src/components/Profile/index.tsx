@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { myGithubAPI } from "../../utils/api";
+import { githubAPI } from "../../utils/api";
 import {
   NameContainer,
   ProfileContainer,
@@ -31,7 +31,7 @@ export function Profile() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const response = await myGithubAPI.get("");
+      const response = await githubAPI.get("users/allanLandin");
       const data = response.data;
 
       setUserData({
