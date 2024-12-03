@@ -5,13 +5,21 @@ interface IpostContextProviderProps {
   children: ReactNode;
 }
 
-interface IPost {}
+export interface IPost {
+  id: number;
+  username: string;
+  issue_link: string;
+  title: string;
+  body: string;
+  created_at: Date;
+  comments_amount: number;
+}
 
 interface IpostContextProps {
   postsList: IPost[];
 }
 
-const postContext = createContext({} as IpostContextProps);
+export const postContext = createContext({} as IpostContextProps);
 
 export function PostContextProvider({ children }: IpostContextProviderProps) {
   const [postsList, setPostsList] = useState<IPost[]>([]);
@@ -19,10 +27,22 @@ export function PostContextProvider({ children }: IpostContextProviderProps) {
   useEffect(() => {
     async function fetchIssues() {
       const response = await githubAPI.get("repos/allanLandin/git-blog/issues");
-      const issues = response.data;
+      let issues = response.data;
 
+      issues.map((issue: any) => {
+        return {
+          id: issue.id,
+          username: issue.user.login,
+          issue_link: issue.html_url,
+          title: issue.title,
+          body: issue.body,
+          created_at: new Date(issue.created_at),
+          comments_amount: issue.comments,
+        };
+      });
       setPostsList(issues);
     }
+
     fetchIssues();
   }, []);
 
