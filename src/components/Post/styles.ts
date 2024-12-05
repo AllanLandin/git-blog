@@ -6,7 +6,6 @@ export const PostContainer = styled.div`
   padding: 2rem;
   border: 1px solid transparent;
   max-height: 20rem;
-  overflow-y: auto;
 
   h1 {
     font-size: 1.3rem;

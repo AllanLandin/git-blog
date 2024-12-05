@@ -2,15 +2,21 @@ import { ptBR } from "date-fns/locale";
 import { IPost } from "../../contexts/PostsContext";
 import { PostContainer, PostHeader } from "./styles";
 import { formatDistance } from "date-fns";
-import Markdown from "react-markdown";
+import { useNavigate } from "react-router-dom";
 
 interface IPostProps {
   postData: IPost;
 }
 
 export function Post({ postData }: IPostProps) {
+  const navigate = useNavigate();
+
   return (
-    <PostContainer>
+    <PostContainer
+      onClick={() => {
+        navigate(`/posts/${postData.id}`);
+      }}
+    >
       <PostHeader>
         <h3>{postData.title}</h3>
         <span>
@@ -20,7 +26,11 @@ export function Post({ postData }: IPostProps) {
           })}
         </span>
       </PostHeader>
-      <Markdown>{postData.body}</Markdown>
+      <p>
+        {String(postData.body).length < 250
+          ? String(postData.body).slice(0, 250)
+          : String(postData.body).slice(0, 250) + "..."}
+      </p>
     </PostContainer>
   );
 }

@@ -29,7 +29,7 @@ export function PostContextProvider({ children }: IpostContextProviderProps) {
       const response = await githubAPI.get("repos/allanLandin/git-blog/issues");
       let issues = response.data;
 
-      issues.map((issue: any) => {
+      const posts = issues.map((issue: any) => {
         return {
           id: issue.id,
           username: issue.user.login,
@@ -40,7 +40,7 @@ export function PostContextProvider({ children }: IpostContextProviderProps) {
           comments_amount: issue.comments,
         };
       });
-      setPostsList(issues);
+      setPostsList(posts);
     }
 
     fetchIssues();

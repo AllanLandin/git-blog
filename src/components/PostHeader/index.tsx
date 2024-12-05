@@ -7,8 +7,16 @@ import {
   ChatCircleDots,
   GithubLogo,
 } from "phosphor-react";
+import { IPost } from "../../contexts/PostsContext";
+import { formatDistance } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
-export function PostHeader() {
+interface IPostHeaderProps {
+  currentPost: IPost;
+}
+
+export function PostHeader({ currentPost }: IPostHeaderProps) {
+  console.log(currentPost);
   return (
     <ProfileContainer>
       <HeaderContainer>
@@ -16,21 +24,25 @@ export function PostHeader() {
           <CaretLeft />
           Voltar
         </Link>
-        <Link to="/">
+        <Link to={currentPost.issue_link}>
           Ver no Github
           <ArrowSquareOut />
         </Link>
       </HeaderContainer>
-      <h3>JavaScript data types and data structures</h3>
+      <h3>{currentPost.title}</h3>
       <StatsContainer>
         <span>
-          <GithubLogo /> cameronwll
+          <GithubLogo /> {currentPost.username}
         </span>
         <span>
-          <Calendar /> Há 1 dia
+          <Calendar />{" "}
+          {formatDistance(currentPost.created_at, Date.now(), {
+            addSuffix: true,
+            locale: ptBR,
+          })}
         </span>
         <span>
-          <ChatCircleDots /> 5 Comentários
+          <ChatCircleDots /> {currentPost.comments_amount} Comentários
         </span>
       </StatsContainer>
     </ProfileContainer>

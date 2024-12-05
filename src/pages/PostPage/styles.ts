@@ -12,4 +12,9 @@ export const PostPageContainer = styled.main`
   p {
     font-size: 1rem;
   }
+
+  img {
+    max-width: 100%;
+    object-fit: contain;
+  }
 `;
