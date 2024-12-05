@@ -5,10 +5,21 @@ export const PostContainer = styled.div`
   border-radius: 8px;
   padding: 2rem;
   border: 1px solid transparent;
+  max-height: 20rem;
+  overflow-y: auto;
+
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
 
   p {
     color: ${(props) => props.theme["baseText"]};
-    font-size: 0.9rem;
+    font-size: 1rem;
+    text-overflow: ellipsis;
   }
 
   &:hover {
