@@ -22,4 +22,10 @@ export const GlobalStyle = createGlobalStyle`
         font: 400 1rem "Nunito", serif;
     }
 
+    @media (max-width: 800px) {
+        :root{
+            font-size: 12px;
+        }
+    }
+
 `;

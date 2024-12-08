@@ -1,18 +1,43 @@
 import { useContext } from "react";
-import { FormContainer, FormTitle } from "./styles";
+import { FormContainer, FormTitle, SearchBtn } from "./styles";
 import { postContext } from "../../contexts/PostsContext";
+import * as zod from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { MagnifyingGlass } from "phosphor-react";
 
 export function SearchPosts() {
-  const { postsList } = useContext(postContext);
+  const { postsListFiltered, filterPosts } = useContext(postContext);
+
+  const searchSchema = zod.object({
+    q: zod.string(),
+  });
+
+  type searchSchemaType = zod.infer<typeof searchSchema>;
+
+  const { register, handleSubmit } = useForm<searchSchemaType>({
+    resolver: zodResolver(searchSchema),
+  });
+
+  async function searchForPosts(data: searchSchemaType) {
+    await filterPosts(data.q, "allanLandin/git-blog");
+  }
 
   return (
     <div>
       <FormTitle>
         <h3>Publicações</h3>
-        <span>{postsList.length} publicações</span>
+        <span>{postsListFiltered.length} publicações</span>
       </FormTitle>
-      <FormContainer>
-        <input type="text" placeholder="Buscar conteúdo"></input>
+      <FormContainer onSubmit={handleSubmit(searchForPosts)}>
+        <input
+          type="text"
+          placeholder="Buscar conteúdo"
+          {...register("q")}
+        ></input>
+        <SearchBtn>
+          <MagnifyingGlass type="submit" />
+        </SearchBtn>
       </FormContainer>
     </div>
   );

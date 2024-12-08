@@ -6,7 +6,7 @@ import { HomeContainer, PostsContainer } from "./styles";
 import { postContext } from "../../contexts/PostsContext";
 
 export function Home() {
-  const { postsList } = useContext(postContext);
+  const { postsListFiltered } = useContext(postContext);
 
   return (
     <div>
@@ -15,7 +15,7 @@ export function Home() {
         <SearchPosts />
 
         <PostsContainer>
-          {postsList.map((post) => {
+          {postsListFiltered.map((post) => {
             return <Post key={post.id} postData={post}></Post>;
           })}
         </PostsContainer>
