@@ -29,24 +29,24 @@ export function Profile() {
     followers: 0,
   });
 
+  async function fetchUserData() {
+    const response = await githubAPI.get("users/allanLandin");
+    const data = response.data;
+
+    setUserData({
+      name: data.name,
+      avatar: data.avatar_url,
+      bio: data.bio,
+      githubLink: data.html_url,
+      company: data.company,
+      followers: data.followers,
+      username: data.login,
+    });
+  }
+
   useEffect(() => {
-    const fetchUserData = async () => {
-      const response = await githubAPI.get("users/allanLandin");
-      const data = response.data;
-
-      setUserData({
-        name: data.name,
-        avatar: data.avatar_url,
-        bio: data.bio,
-        githubLink: data.html_url,
-        company: data.company,
-        followers: data.followers,
-        username: data.login,
-      });
-    };
-
     fetchUserData();
-  });
+  }, []);
 
   return (
     <ProfileContainer>

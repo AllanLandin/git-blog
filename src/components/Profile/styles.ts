@@ -12,6 +12,15 @@ export const ProfileContainer = styled.div`
     width: 9rem;
     border-radius: 8px;
   }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    text-align: center;
+    img {
+      margin: 0 auto;
+      object-fit: contain;
+    }
+  }
 `;
 
 export const TextContainer = styled.div`
@@ -45,11 +54,16 @@ export const NameContainer = styled.header`
     border-color: ${(props) => props.theme["blue"]};
     transition: 0.2s;
   }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 export const SocialsContainer = styled.div`
   display: flex;
   gap: 1rem;
+  width: 100%;
 
   span {
     font-size: 0.9rem;
@@ -62,5 +76,9 @@ export const SocialsContainer = styled.div`
   span:hover {
     color: ${(props) => props.theme["baseText"]};
     transition: 0.2s;
+  }
+
+  @media (max-width: 600px) {
+    justify-content: center;
   }
 `;
